@@ -1,6 +1,7 @@
 destination: ../www/fbtft.org
 exclude: ['*.rb']
 relative_permalinks: false
+markdown: kramdown
 
 image:
   presets:
