@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    {% include header.html %}
+  </head>
+<!--
+  <body class="bs-docs-home">
+    <a class="sr-only" href="#content">Skip to main content</a>
+-->
+  <body role="document">
+
+    <!-- Docs master nav -->
+    {% include nav-main.html %}
+
+<div class="container theme-showcase" role="main">
+
+
+<div class="row">
+
+<div class="col-md-9">
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+      {% if page.wikisrc %}
+        <a href="{{ page.wikisrc }}">{{ page.title }}</a>
+      {% else %}
+        {{ page.title }}
+      {% endif %}
+      </h3>
+    </div>
+    <div class="panel-body">
+
+    {{ content | replace: '<table>', '<table class="table table-condensed">' }}
+
+    </div>
+  </div> <!-- /panel -->
+
+
+</div> <!-- /col-md-9 -->
+
+<div class="col-md-3">
+
+{% if page.group %}
+
+  {% for p in site.pages %}
+    {% assign fn = p.url | downcase | split: '/' | last | replace: '.html', '' %}
+    {% if page.group == fn %}
+    <p>
+      {% if p.url == page.url %}
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      {% else %}
+      <a href="{{ p.url }}"><span class="glyphicon glyphicon-chevron-up"></span></a>
+      {% endif %}
+    </p>
+    {% endif %}
+  {% endfor %}
+
+  {% for p in site.pages %}
+    {% assign fn = p.url | downcase | split: '/' | last | replace: '.html', '' %}
+    {% if p.group == page.group and page.group != fn %}
+    <p>
+      {% if p.url == page.url %}<strong>{% endif %}
+        <a href="{{ p.url }}">{{ p.title }}</a>
+      {% if p.url == page.url %}</strong>{% endif %}
+    </p>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+</div> <!-- /col-md-3 -->
+
+</div> <!-- /row -->
+
+
+</div> <!-- /container -->
+
+
+    {% include footer.html %}
+  </body>
+</html>

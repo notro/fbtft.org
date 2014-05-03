@@ -1,0 +1,91 @@
+---
+layout: home
+title: Displays
+---
+
+<div class="container theme-showcase" role="main">
+
+
+
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">
+    <h3>LCD Modules</h3>
+  </div>
+  <div class="panel-body">
+    <p>This is a list of some display modules that have been used successfully with FBTFT</p>
+  </div>
+  <!-- Table -->
+  <table class="table">
+    <tr>
+      <th>Name</th>
+      <th>Size</th>
+      <th>Resolution</th>
+      <th>Controller</th>
+      <th>Touch</th>
+      <th>Interface</th>
+      <th>Note</th>
+    </tr>
+  {% filter_for p in site.pages sort_by:title category:display %}
+    <tr>
+      <td><a href="#{{ p.path | remove: '/' }}">{{ p.title }}</a></td>
+      <td>{{ p.size }}</td>
+      <td>{{ p.resolution }}</td>
+      <td>{{ p.controller }}</td>
+      <td>{{ p.touch }}</td>
+      <td>{{ p.interface }}</td>
+      <td>{{ p.note }}</td>
+    </tr>
+  {% endfilter_for %}
+  </table>
+</div>  <!-- /panel -->
+
+
+
+{% filter_for p in site.pages sort_by:title category:display %}
+
+  <a name="{{ p.path | remove: '/' }}"></a>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">{{ p.title }}</h3>
+    </div>
+    <div class="panel-body">
+
+      <div class="media">
+        {% if p.image %}
+        <a class="pull-left" href="{{ p.image }}">
+          {% image displays {{ p.image }} %}
+        </a>
+        {% endif %}
+        <div class="media-body">
+          Size: {{ p.size }}</br>
+          Resolution: {{ p.resolution }}</br>
+          Controller: {{ p.controller }}</br>
+	  {% if p.touch %}
+          Touch controller: {{ p.touch }}</br>
+          {% endif %}
+          Interface: {{ p.interface }}</br>
+	  {% if p.fbtft_device %}
+          fbtft_device: {{ p.fbtft_device }}</br>
+          {% endif %}
+	  {% if p.driver %}
+          Driver: {{ p.driver }}</br>
+          {% endif %}
+	  {% if p.plink %}
+          Product: <a href="{{ p.plink }}">{{ p.plink }}</a></br>
+          {% endif %}
+        </div>
+      </div>
+
+      {{ p.content | replace: '<table>', '<table class="table table-condensed">' }}
+
+    </div>
+  </div> <!-- /panel -->
+
+
+
+{% endfilter_for %}
+
+
+
+</div> <!-- /container -->

@@ -1,0 +1,46 @@
+# some of the rpi_firmware commits doesn't have content. It was in the Changelog.
+- commit: 3d27746905c92164f915bba7c90f34d96f609195
+  content: |
+   * Add displays rpi-display and pitft
+   * Add modules 'stmpe' and 'gpio_backlight'
+   * DMA is enabled by default
+- commit: 2dfaecfd1bfd3237f73b3da16464569b408c3fc5
+  content: |
+   * Moved to Linux version 3.10
+   * fbtft_device: add hy28b support
+   * Add support for S6D1121
+- commit: d0f11a458c49057afd8e069f83da2ad029b70c82
+  content: |
+   * fb_ssd1306: add support for Adafruit OLED 1.3" monochrome display
+   * fb_ili9340: add support for the new Adafruit 2.2" display
+   * Enable console rotation support (fbcon=rotate:1)
+- commit: bf227f608bfefb6d8046b3b841d07066c26367e4
+  content: |
+   * fbtft: fix performance debug output
+   * flexfb: add 9-bit SPI emulation support
+   * fb_watterott: add support for mi0283qt-v2
+   * fbtft: experimental DMA support
+   * fbtft: turn off backlight before device removal
+   
+   Thanks to Derek Campbell (guzunty) there is now experimental DMA support for SPI in FBTFT.
+   The CPU runs much lighter using DMA:  https://github.com/notro/fbtft/wiki/FPS#testing-with-dma-support
+- commit: 761e74acea69c2ae4d503cac8c529273babfef4c
+  content: |
+   * fbtft_device: Add support for Freetronics OLED128 module and Tianma TM022HDH26
+   * fb_ssd1351: added chip gpio support (backlight)
+   * ads7846_device: moved to https://github.com/notro/fbtft_tools
+   * fbtft: add active low backlight pinname: 'led_'
+- commit: f5fda53ad421799c7266310d87045cab0b525dec
+  content: |
+   * All drivers have been rewritten (except flexfb). They now contain only LCD Controller specific logic and a default init sequence. fbtft_device contains the display specific information.
+     Show supported displays like this: sudo modprobe fbtft_device name=list; dmesg | tail -30
+   * 'rotate' argument is now a conter clockwise angle: 0, 90, 180, 270
+   * All drivers support all interface modes: SPI 8-bit + D/C, 8-bit + startbyte, 9-bit, GPIO 8, 16 bit (even though the LCD controller might not).
+   * The drivers will also load automatically when the device is present (need only load fbtft_device).
+   * The init sequence can be overridden on all drivers with the fbtft_device init argument.
+- commit: 4454767d09c992a132403079f3c9006a5191e9ad
+  content: |
+   * fix stmpe-ts  
+     Interrupts was missed resulting in driver hang
+   * add rpi_power_switch module  
+     Turn on/off the Raspberry Pi with a button

@@ -1,0 +1,71 @@
+---
+layout: home
+title: News
+---
+
+<div class="container theme-showcase" role="main">
+
+
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">News</h3>
+    </div>
+    <div class="panel-body">
+
+
+
+
+  {% filter_for p in site.pages sort_by:date reversed:true category:news %}
+
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+
+
+    {% if p.category contains 'newsdriver' %}
+      <button type="button" class="btn btn-xs btn-default">Driver</button>
+    {% elsif p.category contains 'newskernel' %}
+      <button type="button" class="btn btn-xs btn-primary">Kernel</button>
+    {% elsif p.category contains 'newsimage' %}
+      <button type="button" class="btn btn-xs btn-success">Image</button>
+    {% elsif p.category contains 'newsblue' %}
+      <button type="button" class="btn btn-xs btn-info">{% if p.flag %} {{p.flag}} {% else %}News{% endif %}</button>
+    {% elsif p.category contains 'newsorange' %}
+      <button type="button" class="btn btn-xs btn-warning">{% if p.flag %} {{p.flag}} {% else %}News{% endif %}</button>
+    {% elsif p.category contains 'newsred' %}
+      <button type="button" class="btn btn-xs btn-danger">{% if p.flag %} {{p.flag}} {% else %}News{% endif %}</button>
+    {% else %}
+      <button type="button" class="btn btn-xs btn-info">News</button>
+    {% endif %}
+      <a href="{{ p.url }}">{{ p.title }}</a> {{ p.date | date:"%Y-%m-%d" }}
+
+      </h3>
+    </div>
+
+{% if p.content %}
+    <div class="panel-body">
+
+{% if p.content contains '<!--more-->' %}
+    {{ p.content | split:'<!--more-->' | first }}
+    (<a href="{{ p.url }}">more</a>)
+{% else %}
+    {{ p.content }}
+{% endif %}
+
+    </div>
+{% endif %}
+
+  </div> <!-- /panel -->
+
+  {% endfilter_for %}
+    </div>
+  </div> <!-- /panel -->
+
+
+
+
+
+
+</div> <!-- /container -->

@@ -1,0 +1,15 @@
+destination: ../www/fbtft.org
+exclude: ['*.rb']
+relative_permalinks: false
+
+image:
+  presets:
+    displays:
+      width: 300
+
+github:
+  commits:
+    - url: 'https://api.github.com/repos/notro/fbtft/commits'
+      category: newsdriver
+    - url: 'https://api.github.com/repos/notro/rpi-firmware/commits'
+      category: newskernel

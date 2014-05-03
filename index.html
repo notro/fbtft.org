@@ -1,0 +1,40 @@
+---
+layout: home
+title: Home
+---
+
+    <div class="container theme-showcase" role="main">
+
+
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <h1>Hello, world!</h1>
+        <p>Linux Framebuffer drivers for small TFT LCD display modules</p>
+        <p><a href="#" class="btn btn-primary btn-lg" role="button">Raspberry Pi &raquo;</a></p>
+      </div>
+
+
+      <div class="alert alert-danger">
+        <strong>BETA</strong> This site is in beta so there are still issues that are being worked on.
+      </div>
+
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title"><a href="/news.html">News</a></h3>
+    </div>
+    <div class="panel-body">
+
+  <ul>
+  {% filter_for p in site.pages sort_by:date limit:5 reversed:true category:news %}
+    <li>
+      {{ p.date | date:"%Y-%m-%d" }} - {{ p.title }}
+    </li>
+  {% endfilter_for %}
+  </ul>
+
+    </div>
+  </div> <!-- /panel -->
+
+
+    </div> <!-- /container -->
