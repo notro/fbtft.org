@@ -77,7 +77,11 @@ title: Displays
         </div>
       </div>
 
-      {{ p.content | replace: '<table>', '<table class="table table-condensed">' }}
+      {% if p.content contains '<p>' %}
+        {{ p.content | replace: '<table>', '<table class="table table-condensed">' }}
+      {% else %}
+        {{ p.content | markdownify  | replace: '<table>', '<table class="table table-condensed">' }}
+      {% endif %}
 
     </div>
   </div> <!-- /panel -->
