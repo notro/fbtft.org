@@ -47,7 +47,9 @@ title: Displays
   <a name="{{ p.path | remove: '/' }}"></a>
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">{{ p.title }}</h3>
+      <h3 class="panel-title">
+        <a href="https://github.com/notro/fbtft.org/wiki/{{ p.path | split: '/' | last | replace: '.md', '' }}">{{ p.title }}</a>
+      </h3>
     </div>
     <div class="panel-body">
 
