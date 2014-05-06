@@ -23,7 +23,7 @@ Documentation
 -------------
 
 [Jekyll](http://jekyllrb.com/) is used to build [fbtft.org](http://fbtft.org) using <https://github.com/notro/fbtft.org>  
-In addition to that, the [wiki](https://github.com/notro/fbtft.org/wiki) is also pulled in before building.  
+In addition to that, the [wiki pages](https://github.com/notro/fbtft.org/wiki) are also pulled in before building. The page title links to the wiki source page.  
 A change to the wiki triggers a rebuild of this site (<http://fbtft.org/build.log>).
 
 The wiki pages have a [Front-matter](http://jekyllrb.com/docs/frontmatter/) that instructs Jekyll how to process the file.  
