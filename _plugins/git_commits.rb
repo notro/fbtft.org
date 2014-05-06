@@ -58,8 +58,8 @@ module Jekyll
       for repo in site.config['github']['commits']
         url = repo['url']
         raise "missing url" unless repo['url']
-	category = repo['category']
-pp url
+        category = repo['category']
+        Jekyll.logger.debug "CommitPage:", "Processing #{url}"
         r = Http.get "#{url}?per_page=100"
         if r.nil?
           raise "could not get ${url}"
@@ -71,10 +71,9 @@ pp url
         j = JSON.parse r.to_s
         for commit in j
           unless commit.respond_to? 'has_key?'
-  	    puts ""
-  	    pp j
-  	    raise "bad response from #{url}"
-  	  end
+          Jekyll.logger.error "CommitPage:", j.inspect
+          raise "bad response from #{url}"
+      end
 
 #pp commit
 
