@@ -22,7 +22,7 @@ I accept simple changes directly from an issue, a pull request is not needed.
 Documentation
 -------------
 
-Jekyll is used to build [fbtft.org](http://fbtft.org) using <https://github.com/notro/fbtft.org>  
+[Jekyll](http://jekyllrb.com/) is used to build [fbtft.org](http://fbtft.org) using <https://github.com/notro/fbtft.org>  
 In addition to that, the [wiki](https://github.com/notro/fbtft.org/wiki) is also pulled in before building.  
 A change to the wiki triggers a rebuild of this site (<http://fbtft.org/build.log>).
 
