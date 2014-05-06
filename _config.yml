@@ -1,5 +1,5 @@
 destination: ../www/fbtft.org
-exclude: ['*.rb']
+exclude: ['*.rb', 'build']
 relative_permalinks: false
 markdown: kramdown
 

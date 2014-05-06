@@ -1,0 +1,93 @@
+#!/usr/bin/env ruby
+
+#STDOUT.sync = true
+
+require 'rubygems'
+
+# use last version of psych
+gem 'psych', '~> 2.0'
+require 'psych'
+
+require 'stringio'
+require 'logger'
+require 'jekyll'
+
+# custom logger
+module Jekyll
+  def self.logger=(logger)
+    @logger = logger
+  end
+
+  class CustomStevenson < Stevenson
+
+    def initialize(logger=Logger.new(STDOUT))
+      @logger = logger
+    end
+
+    def debug(topic, message = nil)
+      @logger.debug(message(topic, message))
+    end
+
+    def info(topic, message = nil)
+      @logger.info(message(topic, message))
+    end
+
+    def warn(topic, message = nil)
+      @logger.warn(message(topic, message))
+    end
+
+    def error(topic, message = nil)
+      @logger.error(message(topic, message))
+    end
+  end
+end
+
+def mail(to, subject, body)
+#  require "shellwords"
+#  body = Shellwords.escape(body.to_s)
+  body = body.to_s.gsub('`',"'")
+
+  `mail -s "#{subject}" #{to}<<EOM
+#{body}
+EOM`
+end
+
+
+# set logger
+strio = StringIO.new
+logger = Logger.new strio
+logger.level = Logger::DEBUG
+Jekyll.logger = Jekyll::CustomStevenson.new(logger)
+logger.info('jekyll build')
+trigger = ARGV.shift
+logger.info("Trigger: #{trigger}") if trigger
+
+# configuration
+override = {}
+options = Jekyll.configuration(override)
+
+# build
+begin
+  Jekyll::Commands::Build.process(options)
+rescue => e
+  Jekyll.logger.error "Error during processing: #{$!}"
+  Jekyll.logger.error "Backtrace:\n\t#{e.backtrace.join("\n\t")}"
+end
+
+logger.info('Done')
+
+# print log to stdout
+puts strio.string
+
+if trigger
+  # triggered by update.cgi
+
+  if strio.string.include? 'ERROR'
+    subject = "fbtft.org ERROR"
+  else
+    subject = "fbtft.org"
+  end
+  mail "notify@tronnes.org", subject, strio.string
+
+  File.open('jekyll.log', 'w') { |file| file.write(strio.string) }
+end
