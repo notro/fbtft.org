@@ -101,5 +101,5 @@ if trigger
   end
   mail "notify@tronnes.org", subject, strio.string
 
-  File.open('jekyll.log', 'w') { |file| file.write(strio.string) }
+  File.open(File.join(options['destination'], 'build.log'), 'w') { |file| file.write(strio.string) }
 end
