@@ -52,21 +52,33 @@ def mail(to, subject, body)
 EOM`
 end
 
+def git_pull(path, logger)
+  cmd = "cd #{path} && git pull 2>&1"
+  logger.debug cmd
+  logger.debug `#{cmd}`.strip
+  logger.error "Command failed: #{cmd.inspect}" unless $?.to_i == 0
+end
+
 
 # set logger
 strio = StringIO.new
 logger = Logger.new strio
 logger.level = Logger::DEBUG
 Jekyll.logger = Jekyll::CustomStevenson.new(logger)
-logger.info('jekyll build')
+logger.info('---------------------------------')
 trigger = ARGV.shift
 logger.info("Trigger: #{trigger}") if trigger
+
+# pull changes
+git_pull ".", logger
+git_pull "fbtft.org.wiki", logger
 
 # configuration
 override = {}
 options = Jekyll.configuration(override)
 
 # build
+logger.info('Jekyll::Commands::Build.process')
 begin
   Jekyll::Commands::Build.process(options)
 rescue => e
